@@ -22,16 +22,16 @@ async fn main() {
 
     let (lat, lon) = match coordinates::get(&url).await {
         Ok(coordinates) => coordinates,
-        Err(e) => {
-            println!("{e}");
+        Err(_) => {
+            println!("unable to fetch coordinates");
             return 
         }
     };
 
     let (temp, weather) = match weather::get(lat, lon, key).await {
         Ok(result) => result,
-        Err(e) => {
-            println!("{e}");
+        Err(_) => {
+            println!("unable to connect to openweathermap");
             return
         }
     };
