@@ -28,7 +28,7 @@ async fn main() {
         }
     };
 
-    let (temp, weather) = match weather::get(lat, lon, key).await {
+    let (temp, description, icon) = match weather::get(lat, lon, key).await {
         Ok(result) => result,
         Err(_) => {
             println!("unable to connect to openweathermap");
@@ -36,5 +36,5 @@ async fn main() {
         }
     };
 
-    println!("{temp} {weather}")
+    println!("{icon} {temp} {description}")
 }

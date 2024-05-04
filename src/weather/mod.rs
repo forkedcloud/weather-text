@@ -1,4 +1,4 @@
-pub async fn get(lat: String, lon: String, key: String) -> Result<(String, String), String> {
+pub async fn get(lat: String, lon: String, key: String) -> Result<(String, String, String), String> {
     let url = format!("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=imperial&appid={key}");
     let response = match reqwest::get(url).await {
         Ok(response) => response,
@@ -17,7 +17,10 @@ pub async fn get(lat: String, lon: String, key: String) -> Result<(String, Strin
 
     let temp = format!("{}°F", &json["main"]["temp"]);
 
-    let weather = match json["weather"][0]["icon"].as_str().unwrap() {
+    let description = &json["weather"][0]["description"].to_string();
+    let description = description.trim_matches('"');
+
+    let icon = match json["weather"][0]["icon"].as_str().unwrap() {
         "01d" => "",
         "01n" => "",
         "02d" => "",
@@ -39,5 +42,5 @@ pub async fn get(lat: String, lon: String, key: String) -> Result<(String, Strin
         _ => ""
     };
 
-    return Ok((temp, weather.to_string()))
+    return Ok((temp, description.to_string(), icon.to_string()))
 }
