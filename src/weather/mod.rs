@@ -15,7 +15,8 @@ pub async fn get(lat: String, lon: String, key: String) -> Result<(String, Strin
         Err(e) => return Err(e.to_string())
     };
 
-    let temp = format!("{}°F", &json["main"]["temp"]);
+    let temp = &json["main"]["temp"].to_string();
+    let temp = format!("{}°F", temp.split('.').nth(0).unwrap());
 
     let description = &json["weather"][0]["description"].to_string();
     let description = description.trim_matches('"');
