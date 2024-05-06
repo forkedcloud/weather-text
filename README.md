@@ -22,7 +22,7 @@ doesn't seem to be able to find anything in `~/.cargo`.
 * `%T:_` - temperature with specified precision
 * `%D` - weather description
 
-For example, the format string `$I $T:0 $D` will produce an output such as
+For example, the format string `%I %T:0 %D` will produce an output such as
 ```
  41°F light rain
 ```
