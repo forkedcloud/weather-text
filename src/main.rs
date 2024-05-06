@@ -3,14 +3,18 @@
 // printed to standard out so that they can be displayed in the wibar
 
 use tokio;
+use clap::Parser;
 
+mod cli;
 mod credentials;
 mod coordinates;
 mod weather;
 
 #[tokio::main]
 async fn main() {
-    let (zip, key) = match credentials::get() {
+    let cli = cli::CLI::parse();
+
+    let (zip, key) = match credentials::get(cli.credentials) {
         Ok(credentials) => credentials,
         Err(e) => {
             println!("{e}");
@@ -28,7 +32,7 @@ async fn main() {
         }
     };
 
-    let (temp, description, icon) = match weather::get(lat, lon, key).await {
+    let weather = match weather::get(lat, lon, cli.units, cli.format, key).await {
         Ok(result) => result,
         Err(_) => {
             println!("unable to connect to openweathermap");
@@ -36,5 +40,5 @@ async fn main() {
         }
     };
 
-    println!("{icon} {temp} {description}")
+    println!("{weather}");
 }

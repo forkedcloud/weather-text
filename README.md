@@ -6,10 +6,27 @@ widget, but it can be used anywhere else you want.
 
 ## installation
 
-Clone the repository and build it. To be used in a Wibar widget, you'll want it
-to be in your PATH. I recommend manually copying the binary into a directory
-such as `/usr/bin/`, as awesomewm doesn't seem to be able to find anything in
-`~/.cargo`.
+Clone the repository, build it, and install with
+```
+cargo install --path .
+```
+To be used in a Wibar widget, you'll want it to be in your PATH. I recommend 
+manually copying the binary into a directory such as `/usr/bin/`, as awesomewm
+doesn't seem to be able to find anything in `~/.cargo`.
+
+## formatting
+
+`weather-text` now supports formatting using the following identifiers:
+
+* `%I` - weather icon
+* `%T:_` - temperature with specified precision
+* `%D` - weather description
+
+For example, the format string `$I $T:0 $D` will produce an output such as
+```
+ 41°F light rain
+```
+More identifiers will be added eventually.
 
 ## api key
 
