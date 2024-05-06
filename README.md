@@ -32,8 +32,8 @@ More identifiers will be added eventually.
 
 This tool utilizes the OpenWeatherMap API, so you'll need to go create an 
 acccount at https://openweathermap.org and generate an API key. Once you have
-this key, create the file `~/.weather-text/key`; this is the only place the
-tool will check because I'm too lazy to make this location configurable.
+this key, create the file `~/.weather-text/key`, or specify a custom path using
+the `--credentials` flag.
 
 The file should have your ZIP code on the first line, and your API key on the
 second line. For example,
