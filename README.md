@@ -26,6 +26,14 @@ For example, the format string `%I %T:0 %D` will produce an output such as
 ```
  41°F light rain
 ```
+These can be inserted into any string; the format string
+```
+good morning. the weather is %D with a temperature of %T:0
+```
+will produce an output such as
+```
+good morning. the weather is overcast clouds with a temperature of 61°F
+```
 More identifiers will be added eventually.
 
 ## api key
@@ -42,6 +50,8 @@ second line. For example,
 6e71b3cac15d32fe2d36c270887df9479c25c640
 ```
 Once this file is in place, the tool should work. 
+
+---
 
 If you find something you don't like or want to improve upon this, you're more
 than welcome to open a pull request. I wrote this in like 20 minutes to make a

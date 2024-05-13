@@ -4,7 +4,7 @@ use clap::Parser;
 #[command(author, version, about, long_about = None)]
 pub struct CLI {
     #[arg(short, long, required = false, default_value = "%I %T:0 %D")]
-    /// Format string
+    /// Format string with space-separated identifiers
     pub format: String,
 
     #[arg(short, long, required = false, value_parser = ["standard", "metric", "imperial"], default_value = "standard")]
