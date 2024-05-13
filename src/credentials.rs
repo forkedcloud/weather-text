@@ -1,11 +1,11 @@
 use std::env::var;
 
-pub fn get(credentials: String) -> Result<(String, String), String> {
+pub fn get(credentials: Option<String>) -> Result<(String, String), String> {
     let path: String;
-    if credentials == "default" {
+    if credentials.is_none() {
         path = format!("{}/.weather-text/key", var("HOME").unwrap());
     } else {
-        path = credentials;
+        path = credentials.unwrap();
     }
 
     let text = std::fs::read_to_string(path).map_err(|e| format!("error reading credentials: {e}"))?;

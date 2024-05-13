@@ -11,7 +11,7 @@ pub struct CLI {
     /// Unit specifier
     pub units: String,
 
-    #[arg(short, long, required = false, default_value = "default")]
+    #[arg(short, long)]
     /// Alternative path to credential file
-    pub credentials: String,
+    pub credentials: Option<String>,
 }
