@@ -4,6 +4,9 @@ This is a simple little program to fetch weather data from OpenWeatherMap and
 print the temprature and an icon. It was originally built to be used in a Wibar
 widget, but it can be used anywhere else you want.
 
+NOTICE: With recent changes, the output icons now rely on Nerd Font. Please
+make sure you are using a compatible font.
+
 ## installation
 
 Clone the repository, build it, and install with
