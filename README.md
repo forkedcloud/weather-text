@@ -1,5 +1,6 @@
 # 🌤️ weather-text
 **A simple program which fetches some weather data from OpenWeatherMap and displays a temperature with its icon.**
+
 Originally designed to be used within a Wibar widget, it's flexible enough to fit where you need it! 
 
 **⚠️ NOTICE:**
@@ -18,7 +19,8 @@ bash
 cargo install --path .
 ```
 Make sure that cargo (a build system and package manager for Rust) is installed in your system.
-🛠️ To use in a Wibar widget:
+
+**🛠️ To use in a Wibar widget**:
 Make sure the binary is in your PATH. It is highly recommended to manually copy it to a directory like `/usr/bin/`, since AwesomeWM may not detect files in `~/.cargo`.
 
 ## 🖋️ Formatting Options
@@ -29,6 +31,7 @@ Make sure the binary is in your PATH. It is highly recommended to manually copy 
   
 ### 🧩 Example Formats
 1️⃣ **Format string**: `%I %T:0 %D`
+
 ** 💬 Output**:
 ```
  41°F light rain
@@ -58,8 +61,8 @@ This tool uses the OpenWeatherMap API. To get started:
 * **Line 2**: Your API key.
 
 Once this file is in place, the tool is ready to use! 🚀
----
 
+---
 ## 💡 Contributions Welcome
 Found something you'd like to improve? 🤔
 Feel free to open a **pull request**!
