@@ -71,7 +71,7 @@ T9W
 * **Line 1**: Your **country code** 🌎 (e.g., `CA` for Canada 🍁, PK for Pakistan 🇵🇰, IN for India 🇮🇳, etc.).
 * **Line 2**: Your **ZIP code** 🏠 (e.g., `T9W`).
 * **Line 3**: Your **API key** 🔑 (e.g., `6e71b3cac15d32fe2d36c270887df9479c25c640`).
-* **With this format, you can **specify your country** 🌍. The tool will read the country code, ZIP code, and API key, and use them accordingly.
+* With this format, you can **specify your country** 🌍. The tool will read the country code, ZIP code, and API key, and use them accordingly.
 
 ### ⚙️ How it works:
 * The program will check if the first line of configuration file starts with **numbers**, if it does it will assume that its the **ZIP code** that is provided and will default to the **United States (US) 🇺🇸**.
