@@ -1,7 +1,7 @@
 [package]
 name = "weather-text"
 version = "0.1.1"
-edition = "2024"
+edition = "2021"
 description = "`weather-text` fetches the current weather and presents it as a concise string. The intended use case is as a wibar widget.\nZIP code and API key should be stored on separate lines in `~/.weather-text/key`, or an alternate path should be provided using the `--credentials` flag."
 authors = ["Joe Pigott <pigroy@pigroy.xyz>"]
 
