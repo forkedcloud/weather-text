@@ -32,7 +32,7 @@ Make sure the binary is in your PATH. It is highly recommended to manually copy 
 ### 🧩 Example Formats
 1️⃣ **Format string**: `%I %T:0 %D`
 
-** 💬 Output**:
+**💬 Output**:
 ```
  41°F light rain
 ```
@@ -40,7 +40,7 @@ Make sure the binary is in your PATH. It is highly recommended to manually copy 
 ```
 good morning. the weather is %D with a temperature of %T:0
 ```
-** 💬 Output**:
+**💬 Output**:
 ```
 good morning. the weather is overcast clouds with a temperature of 61°F
 ```
@@ -65,6 +65,7 @@ Once this file is in place, the tool is ready to use! 🚀
 ---
 ## 💡 Contributions Welcome
 Found something you'd like to improve? 🤔
+
 Feel free to open a **pull request**!
 
 🛠️ **Note**: This was initially built in just 20 minutes for a Wibar widget, so there's room for improvement.
