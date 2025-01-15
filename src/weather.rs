@@ -1,51 +1,49 @@
-pub async fn get(lat: String, lon: String, units: String, format: String, key: String) -> Result<String, String> {
-    let url = format!("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units={units}&appid={key}");
+pub async fn get(
+    latitude: String,
+    longitude: String,
+    units: String,
+    format: String,
+    key: String,
+) -> Result<String, String> {
+    let url = format!("https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&units={units}&appid={key}");
 
     let response = reqwest::get(url).await.map_err(|e| e.to_string())?;
     let text = response.text().await.map_err(|e| e.to_string())?;
     let json: serde_json::Value = serde_json::from_str(&text).map_err(|e| e.to_string())?;
 
-    let mut result: String = Default::default();
-    for element in format.split(" ") {
-        let substring: String;
-
-        if element.starts_with('%') {
-            substring = match &element[0..2] {
+    let mut result = String::new();
+    for element in format.split_whitespace() {
+        let substring = if element.starts_with('%') {
+            match &element[0..2] {
                 "%T" => {
-                    let temperature = &json["main"]["temp"].to_string().parse::<f32>().unwrap();
-                    let accuracy = &element.split(":").last().unwrap().parse::<usize>().unwrap();
+                    let temp = json["main"]["temp"]
+                        .as_f64()
+                        .ok_or("Error parsing temperature")?;
+                    let precision = element.split(':').nth(1).unwrap_or("0").parse::<usize>().unwrap_or(0);
                     let unit = match units.as_str() {
                         "standard" => "K",
                         "metric" => "°C",
                         "imperial" => "°F",
-                        _ => {
-                            // clap validates this argument so this shouldn't happen
-                            return Err(format!("unknown unit {units}"));
-                        }
+                        // Clap validates this argument so this shouldn't happen.
+                        _ => return Err(format!("Unknown unit: {units}")),
                     };
-                    format!("{:.1$}{unit}", temperature, accuracy)
+                    format!("{:.precision$}{unit}", temp)
                 }
-                "%D" => {
-                    let description = &json["weather"][0]["description"].to_string();
-                    format!("{}", description.trim_matches('"'))
-                }
-                "%I" => {
-                    let icon = get_icon(&json["weather"][0]["icon"].as_str().unwrap());
-                    format!("{icon}")
-                }
-                _ => {
-                    return Err(format!("unknown format identifier {element}"));
-                }
-            };
+                "%D" => json["weather"][0]["description"]
+                    .as_str()
+                    .unwrap_or("Unknown description")
+                    .to_string(),
+                "%I" => get_icon(json["weather"][0]["icon"].as_str().unwrap_or("")).to_string(),
+                _ => return Err(format!("Unknown format identifier: {element}")),
+            }
         } else {
-            substring = element.to_string();
-        }
-
+            element.to_string()
+        };
         result.push_str(&substring);
-        result.push_str(" ");
+        result.push(' ');
     }
 
-    return Ok(result);
+    Ok(result.trim_end().to_string())
 }
 
 fn get_icon(code: &str) -> &str {

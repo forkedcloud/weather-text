@@ -1,4 +1,4 @@
-// preface: some of the error handling in this program may seem horrible, but
+// Preface: some of the error handling in this program may seem horrible, but
 // it's designed so that the program should *not* panic. any errors should be 
 // printed to standard out so that they can be displayed in the wibar
 
@@ -14,31 +14,33 @@ mod weather;
 async fn main() {
     let cli = cli::CLI::parse();
 
-    let (zip, key) = match credentials::get(cli.credentials) {
+    let (country_code, zip, key) = match credentials::get(cli.credentials) {
         Ok(credentials) => credentials,
         Err(e) => {
-            println!("{e}");
-            return
+            eprintln!("Error: {e}");
+            eprintln!("For more information, try '--help'.");
+            return;
         }
     };
 
-    let url = format!("http://api.openweathermap.org/geo/1.0/zip?zip={zip},US&appid={key}");
+    let geo_url = format!("http://api.openweathermap.org/geo/1.0/zip?zip={zip},{country_code}&appid={key}");
 
-    let (lat, lon) = match coordinates::get(&url).await {
+    let (latitude, longitude) = match coordinates::get(&geo_url).await {
         Ok(coordinates) => coordinates,
         Err(e) => {
             println!("{e}");
-            return 
+            return;
         }
     };
+    
 
-    let weather = match weather::get(lat, lon, cli.units, cli.format, key).await {
+    let weather_result = match weather::get(latitude, longitude, cli.units, cli.format, key).await {
         Ok(result) => result,
         Err(e) => {
             println!("{e}");
-            return
+            return;
         }
     };
 
-    println!("{weather}");
+    println!("{weather_result}");
 }
